@@ -76,6 +76,10 @@ void setPwmFrequency(int pin, int divisor) {
     TCCR2B = TCCR2B & 0b11111000 | mode;
   }
 }
+void setNumber(byte);
+bool long_press(byte, int);
+void menu();
+void show(int, int);
 void setup() {
   //TCCR1B=TCCR1B&0b11111000|0x01;
   setPwmFrequency(9, 1);
@@ -144,7 +148,7 @@ void loop() {
   	//second blinker and clock update
   	blinker();
   	//anti overlow protection
-  	if(blink_timer > millis() || tim > millis()){
+  	if(blink_timer > millis() || tim > millis() || millis() > 4000000000){
     	blink_timer = millis();
     	tim = millis();
     	lp_millis = millis();
@@ -464,32 +468,32 @@ void menu(){
 			break;
 			case 3:
 			  //date
-        while(in_sub_sub_menu){
-        if(digitalRead(btn_ok) == LOW){
-          is_click = true;
-        }
-        show(0, key1);
-        show(0, key2);
-        show(0, key3);
-        show(show_date, key4);
-        show(10, Hog1);
-        if(click(btn_minus) || click(btn_plus))
-          show_date = !show_date;
-        if(click(btn_ok)){
-          in_sub_sub_menu = false;
-          EEPROM.write(3, show_date);
-        }
-        }
-      in_sub_sub_menu = true;
-      if(show_date){
-        while(in_sub_sub_menu){
-          show(0, key1);
-          show(0, key2);
-          show(0, key3);
-          show(show_date, key4);
-          show(10, Hog1);
-        }
-      }
+      //   while(in_sub_sub_menu){
+      //   if(digitalRead(btn_ok) == LOW){
+      //     is_click = true;
+      //   }
+      //   show(0, key1);
+      //   show(0, key2);
+      //   show(0, key3);
+      //   show(show_date, key4);
+      //   show(10, Hog1);
+      //   if(click(btn_minus) || click(btn_plus))
+      //     show_date = !show_date;
+      //   if(click(btn_ok)){
+      //     in_sub_sub_menu = false;
+      //     EEPROM.write(3, show_date);
+      //   }
+      //   }
+      // in_sub_sub_menu = true;
+      // if(show_date){
+      //   while(in_sub_sub_menu){
+      //     show(0, key1);
+      //     show(0, key2);
+      //     show(0, key3);
+      //     show(show_date, key4);
+      //     show(10, Hog1);
+      //   }
+      // }
       curr_menu = 4;
 
 

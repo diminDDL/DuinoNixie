@@ -147,15 +147,6 @@ void loop() {
 	}
   	//second blinker and clock update
   	blinker();
-  	//anti overlow protection
-  	if(blink_timer > millis() || tim > millis() || millis() > 4000000000){
-    	blink_timer = millis();
-    	tim = millis();
-    	lp_millis = millis();
-    	click_interval = millis();
-      if(show_date)
-        date_tick++;
-    }
     if(date_tick >= show_date_evry_sec){
       if(date_tick >= show_date_evry_sec + show_date_for){
         date_tick = 0;

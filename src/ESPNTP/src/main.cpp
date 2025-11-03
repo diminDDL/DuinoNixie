@@ -31,9 +31,24 @@ void setup()
 }
 
 unsigned long millisLast = 0;
+String timeString = "";
 void loop()
 {
-    timeClient.update();
+start:
+    bool success = timeClient.update();
+    if (!success) {
+        for (int i = 0; i < 3 && !success; i++) {
+            delay(500);
+            success = timeClient.update();
+        }
+        timeString = timeClient.getFormattedTime();
+        if (!success && timeString == "00:00:00") {
+            // after several failed attempts, wait a second before retrying
+            delay(1000);
+            // Serial.println("failed");
+            goto start;
+        }
+    }
     // send the time once a minute
     if(timeClient.isTimeSet() && millis() - millisLast > 60000){
         millisLast = millis();

@@ -34,7 +34,7 @@ byte btn_minus = 2;
 
 byte out1 = A3;
 byte out2 = A1;
-byte out4 = A0;
+byte out4 = 10;
 byte out8 = A2;
 
 byte key1 = 8;
@@ -703,6 +703,7 @@ void menu()
 			}
 			break;
 		case 6:
+			// hour offset (time zone)
 			in_sub_sub_menu = true;
 			while (in_sub_sub_menu)
 			{
